@@ -1,32 +1,29 @@
 package com.damas.objetos;
 
-/**
- * Dama do jogo.
- * <p>Recebe uma casa e um tipo associado</p>
- * @author João Victor da S. Cirilo {@link joao.cirilo@academico.ufpb.br}
- */
-public class Dama extends Pedra{
 
-    /**
-     * @param casa Objeto Casa
-     * @param tipo int tipo de peça (1 = Dama Branca, 3 = Dama vermelha) 
-     */
-    public Dama(Casa casa, int tipo) {
-        super(casa, tipo);
+ //Sobrescreve as regras de movimentação para permitir deslocamentos sem restrição de distância vetorial.
+ public class Dama extends Abstrata {
+
+    public Dama(Casa casa, Cor cor) {
+        super(casa, cor);
     }
 
-    /**
-     * Movimento da Dama que pode andar várias casas na diagonal
-     * @param destino
-     * @return boolean. True se puder ser movida e false se não 
-     */
-   @Override
+    @Override
     public boolean isMovimentoValido(Casa destino) {
-        int distanciaX = Math.abs((destino.getX() - casa.getX()));
-        int distanciaY = Math.abs((destino.getY() - casa.getY()));
+        // Valida se o deslocamento ocorre estritamente em uma diagonal perfeita
+        int distanciaX = Math.abs(destino.getX() - casa.getX());
+        int distanciaY = Math.abs(destino.getY() - casa.getY());
 
-        if (distanciaX == distanciaY) return true;
+        return distanciaX == distanciaY;
+    }
 
-        return false;
+    @Override
+    public boolean podeMoverSemCaptura(Casa destino) {
+        return isMovimentoValido(destino);
+    }
+
+    @Override
+    public Tipo getTipo() {
+        return Tipo.DAMA;
     }
 }

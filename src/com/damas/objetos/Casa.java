@@ -1,17 +1,13 @@
 package com.damas.objetos;
 
-/**
- * Representa uma Casa do tabuleiro.
- * Possui uma posi�ao (i,j) e pode conter uma Pe�a.
- * 
- * @author Alan Moraes &lt;alan@ci.ufpb.br&gt;
- * @author Leonardo Villeth &lt;lvilleth@cc.ci.ufpb.br&gt;
- */
+//Representa uma célula individual (quadrante) da matriz do tabuleiro de damas.
+ //Gerencia dinamicamente a presença de qualquer objeto que assine a interface Peca.
+ 
 public class Casa {
 
-    private int x;
-    private int y;
-    private Pedra peca;
+    private final int x;
+    private final int y;
+    private Peca peca;
 
     public Casa(int x, int y) {
         this.x = x;
@@ -19,30 +15,22 @@ public class Casa {
         this.peca = null;
     }
     
-    /**
-     * @param peca a Pe�ça a ser posicionada nesta Casa.
-     */
-    public void colocarPeca(Pedra peca) {
+    
+    public void setPeca(Peca peca) {
         this.peca = peca;
     }
 
-    /**
-     * Remove a peca posicionada nesta casa, se houver.
-     */
+    //Limpa a ocupação atual da célula, podendo gerar novos movimentos.
     public void removerPeca() {
-        peca = null;
+        this.peca = null;
     }
     
-    /**
-     * @return a Peca posicionada nesta Casa, ou Null se a casa estiver livre.
-     */
-    public Pedra getPeca() {
+    
+    public Peca getPeca() {
         return peca;
     }
     
-    /**
-     * @return true se existe uma peça nesta casa, caso contrario false.
-     */
+    
     public boolean possuiPeca() {
         return peca != null;
     }
